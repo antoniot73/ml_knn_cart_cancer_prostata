@@ -267,7 +267,7 @@ jupyter nbconvert --to html --execute practica_knn_cart_prostata.ipynb
 
 Abrir:
 
-https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb
+https://hub.gesis.mybinder.org/user/antoniot73-ml_k-cancer_prostata-lu4sh758/notebooks/notebooks/practica_knn_cart_prostata.ipynb
 
 ---
 
@@ -275,7 +275,7 @@ https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=
 
 El reporte HTML puede consultarse en:
 
-https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html
+https://antoniot73.github.io/ml_knn_cart_cancer_prostata/notebooks/practica_knn_cart_prostata.html
 
 ---
 
