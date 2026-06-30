@@ -201,9 +201,7 @@ ml_knn_cart_cancer_prostata/
 │
 ├── .gitignore
 ├── README.md
-├── requirements.txt
-├── practica_knn_cart_prostata.ipynb
-└── practica_knn_cart_prostata.html
+└── requirements.txt
 ```
 
 ---
