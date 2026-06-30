@@ -186,9 +186,24 @@ ml_knn_cart_cancer_prostata/
 ├── data/
 │   └── Prostate_Cancer.csv
 │
+├── notebooks/
+│   ├── practica_knn_cart_prostata.ipynb
+│   └── practica_knn_cart_prostata.html
+│
 ├── outputs/
 │   ├── graficas/
+│   │   ├── arbol_cart_nodos.png
+│   │   ├── curva_roc_knn_cart.png
+│   │   ├── distribucion_clases_dataset.png
+│   │   ├── importancia_variables_cart.png
+│   │   ├── matriz_confusion_cart.png
+│   │   ├── matriz_confusion_knn.png
+│   │   └── matriz_correlacion.png
+│   │
 │   └── tablas/
+│       ├── importancia_variables_cart.csv
+│       ├── metricas_comparativas_knn_cart.csv
+│       └── resumen_dataset.csv
 │
 ├── src/
 │   ├── __init__.py
@@ -196,8 +211,6 @@ ml_knn_cart_cancer_prostata/
 │   ├── modeling.py
 │   ├── reporting.py
 │   └── visualization.py
-│
-├── notebooks/
 │
 ├── .gitignore
 ├── README.md
