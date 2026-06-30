@@ -7917,12 +7917,12 @@ code {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Repositorio-y-URL">Repositorio y URL<a class="anchor-link" href="#Repositorio-y-URL">¶</a></h2><p><strong>Repositorio GitHub:</strong><br/>
-Pendiente de actualización.</p>
+<h2 id="Repositorios-y-URL">Repositorios y URL<a class="anchor-link" href="#Repositorios-y-URL">¶</a></h2><p><strong>Repositorio GitHub:</strong><br/>
+<a href="https://github.com/antoniot73/ml_knn_cart_cancer_prostata">https://github.com/antoniot73/ml_knn_cart_cancer_prostata</a></p>
 <p><strong>URL Binder:</strong><br/>
-Pendiente de actualización.</p>
+<a href="https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb">https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb</a></p>
 <p><strong>GitHub Page:</strong><br/>
-Pendiente de actualización.</p>
+<a href="https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html">https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html</a></p>
 <p><strong>Dataset original:</strong><br/>
 <a href="https://www.kaggle.com/datasets/sajidsaifi/prostate-cancer">https://www.kaggle.com/datasets/sajidsaifi/prostate-cancer</a></p>
 </div>
@@ -8248,6 +8248,31 @@ $$</p>
 <span class="n">configure_logging</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"practica_knn_cart_prostata"</span><span class="p">)</span>
 
+<span class="k">def</span><span class="w"> </span><span class="nf">format_relative_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">base_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Devuelve una ruta relativa y portable para reportes del notebook.</span>
+
+<span class="sd">    Evita imprimir rutas absolutas locales de Windows o Linux en las salidas</span>
+<span class="sd">    del notebook. Cuando la ruta pertenece a la raíz del proyecto, se muestra</span>
+<span class="sd">    relativa; si no es posible calcularla, se muestra únicamente el nombre del</span>
+<span class="sd">    archivo.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path: Ruta absoluta o relativa que se desea presentar.</span>
+<span class="sd">        base_path: Ruta base para calcular la ruta relativa. Si no se indica,</span>
+<span class="sd">            se usa PROJECT_ROOT cuando esté disponible.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Cadena con ruta relativa en formato POSIX, por ejemplo:</span>
+<span class="sd">        outputs/graficas/curva_roc_knn_cart.png.</span>
+<span class="sd">    """</span>
+    <span class="n">resolved_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">base_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_path</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"PROJECT_ROOT"</span><span class="p">,</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">())</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">resolved_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">base_path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">resolved_path</span><span class="o">.</span><span class="n">name</span>
+
 <span class="n">PROJECT_ROOT</span> <span class="o">=</span> <span class="n">find_project_root</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
 <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">PROJECT_ROOT</span> <span class="o">/</span> <span class="s2">"data"</span>
 <span class="n">OUTPUT_TABLES</span> <span class="o">=</span> <span class="n">PROJECT_ROOT</span> <span class="o">/</span> <span class="s2">"outputs"</span> <span class="o">/</span> <span class="s2">"tablas"</span>
@@ -8256,8 +8281,8 @@ $$</p>
 <span class="n">OUTPUT_TABLES</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">OUTPUT_GRAPHS</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Raíz del proyecto detectada: </span><span class="si">{</span><span class="n">PROJECT_ROOT</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset esperado: </span><span class="si">{</span><span class="n">DATA_DIR</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'Prostate_Cancer.csv'</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Raíz del proyecto detectada: </span><span class="si">{</span><span class="n">PROJECT_ROOT</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset esperado: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'Prostate_Cancer.csv'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8270,8 +8295,8 @@ $$</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Raíz del proyecto detectada: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata
-Dataset esperado: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\data\Prostate_Cancer.csv
+<pre>Raíz del proyecto detectada: practica_knn_cart_prostata
+Dataset esperado: data/Prostate_Cancer.csv
 </pre>
 </div>
 </div>
@@ -8615,14 +8640,14 @@ Dataset esperado: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Uni
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-06-30 14:12:13,364 | INFO | practica_knn_cart_prostata | Dataset cargado correctamente: 100 registros, 10 columnas.
+<pre>2026-06-30 16:06:01,466 | INFO | practica_knn_cart_prostata | Dataset cargado correctamente: 100 registros, 10 columnas.
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-06-30 14:12:13,364 | INFO | practica_knn_cart_prostata | Dataset validado: columnas, clases y valores faltantes correctos.
+<pre>2026-06-30 16:06:01,469 | INFO | practica_knn_cart_prostata | Dataset validado: columnas, clases y valores faltantes correctos.
 </pre>
 </div>
 </div>
@@ -10058,7 +10083,7 @@ Name: count, dtype: int64
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -10077,7 +10102,7 @@ Name: count, dtype: int64
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\distribucion_clases_dataset.png
+<pre>Gráfica guardada en: outputs/graficas/distribucion_clases_dataset.png
 </pre>
 </div>
 </div>
@@ -10285,14 +10310,14 @@ Prueba: 20 registros
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-06-30 14:12:14,199 | INFO | practica_knn_cart_prostata | Modelo KNN entrenado con k=5.
+<pre>2026-06-30 16:06:02,249 | INFO | practica_knn_cart_prostata | Modelo KNN entrenado con k=5.
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-06-30 14:12:14,199 | INFO | practica_knn_cart_prostata | Modelo CART entrenado con max_depth=4.
+<pre>2026-06-30 16:06:02,251 | INFO | practica_knn_cart_prostata | Modelo CART entrenado con max_depth=4.
 </pre>
 </div>
 </div>
@@ -10413,7 +10438,7 @@ Prueba: 20 registros
 <span class="n">metrics_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">metrics_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">display_compact_dataframe</span><span class="p">(</span><span class="n">metrics_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Métricas comparativas: KNN vs CART"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">metrics_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">metrics_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -10518,7 +10543,7 @@ Prueba: 20 registros
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Tabla guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\tablas\metricas_comparativas_knn_cart.csv
+<pre>Tabla guardada en: outputs/tablas/metricas_comparativas_knn_cart.csv
 </pre>
 </div>
 </div>
@@ -10559,7 +10584,7 @@ Prueba: 20 registros
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Reporte de clasificación - KNN:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"Benigno (B)"</span><span class="p">,</span> <span class="s2">"Maligno (M)"</span><span class="p">]))</span>
 </pre></div>
@@ -10580,7 +10605,7 @@ Prueba: 20 registros
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\matriz_confusion_knn.png
+<pre>Gráfica guardada en: outputs/graficas/matriz_confusion_knn.png
 
 Reporte de clasificación - KNN:
               precision    recall  f1-score   support
@@ -10632,7 +10657,7 @@ weighted avg       0.85      0.85      0.85        20
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Reporte de clasificación - CART:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_cart</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"Benigno (B)"</span><span class="p">,</span> <span class="s2">"Maligno (M)"</span><span class="p">]))</span>
 </pre></div>
@@ -10653,7 +10678,7 @@ weighted avg       0.85      0.85      0.85        20
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\matriz_confusion_cart.png
+<pre>Gráfica guardada en: outputs/graficas/matriz_confusion_cart.png
 
 Reporte de clasificación - CART:
               precision    recall  f1-score   support
@@ -10712,8 +10737,8 @@ weighted avg       0.80      0.80      0.80        20
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="n">display_compact_dataframe</span><span class="p">(</span><span class="n">importance_df</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Importancia de variables calculada por CART"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">importance_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tabla guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">importance_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -10836,8 +10861,8 @@ weighted avg       0.80      0.80      0.80        20
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Tabla guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\tablas\importancia_variables_cart.csv
-Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\importancia_variables_cart.png
+<pre>Tabla guardada en: outputs/tablas/importancia_variables_cart.csv
+Gráfica guardada en: outputs/graficas/importancia_variables_cart.png
 </pre>
 </div>
 </div>
@@ -10924,7 +10949,7 @@ Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente
     <span class="n">output_path</span><span class="o">=</span><span class="n">cart_tree_path</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Árbol CART guardado en: </span><span class="si">{</span><span class="n">cart_tree_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Árbol CART guardado en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">cart_tree_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -10943,7 +10968,7 @@ Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Árbol CART guardado en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\arbol_cart_nodos.png
+<pre>Árbol CART guardado en: outputs/graficas/arbol_cart_nodos.png
 </pre>
 </div>
 </div>
@@ -10995,7 +11020,7 @@ Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC KNN: </span><span class="si">{</span><span class="n">auc_knn</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC CART: </span><span class="si">{</span><span class="n">auc_cart</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Gráfica guardada en: </span><span class="si">{</span><span class="n">format_relative_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -11016,7 +11041,7 @@ Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>AUC KNN: 0.8542
 AUC CART: 0.8125
-Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente\Unidad2\practica_knn_cart_prostata\practica_knn_cart_prostata\outputs\graficas\curva_roc_knn_cart.png
+Gráfica guardada en: outputs/graficas/curva_roc_knn_cart.png
 </pre>
 </div>
 </div>
@@ -11029,10 +11054,11 @@ Gráfica guardada en: D:\DISCO C\Antonio Toro\UIA-MAI\6. Aprendizaje inteligente
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="10.-Discusi%C3%B3n-de-resultados">10. Discusión de resultados<a class="anchor-link" href="#10.-Discusi%C3%B3n-de-resultados">¶</a></h2><p>La comparación se realiza sobre el mismo conjunto de prueba. KNN evalúa la similitud geométrica entre registros, mientras que CART genera reglas jerárquicas, importancia de variables y una estructura visual de nodos que facilita interpretar el proceso de decisión.</p>
-<p>La curva ROC permite comparar ambos modelos sin depender de un único umbral de decisión. El resultado más relevante es que KNN obtuvo el mayor AUC (0.8542) frente a CART (0.8125), por lo que presentó mejor capacidad global para discriminar entre diagnósticos benignos y malignos.</p>
-<p>Además, KNN alcanzó un recall de 0.9167, superior al de CART (0.8333), lo que indica mayor sensibilidad para identificar correctamente la clase positiva. Sin embargo, CART conserva una ventaja interpretativa, ya que permite observar las reglas de decisión, los nodos del árbol y la importancia relativa de las variables.</p>
-<p>En conjunto, KNN fue el modelo con mejor rendimiento predictivo, mientras que CART fue el modelo más explicativo. Por tanto, ambos modelos aportan valor complementario: KNN por desempeño y CART por interpretabilidad.</p>
+<h2 id="10.-Interpretaci%C3%B3n-de-resultados">10. Interpretación de resultados<a class="anchor-link" href="#10.-Interpretaci%C3%B3n-de-resultados">¶</a></h2><p>La comparación se realiza sobre el mismo conjunto de prueba. <strong>KNN</strong> evalúa la similitud geométrica entre registros, mientras que <strong>CART</strong> genera reglas jerárquicas, importancia de variables y una estructura visual de nodos que facilita interpretar el proceso de decisión.</p>
+<p>La curva ROC permite comparar ambos modelos sin depender de un único umbral de decisión. El resultado más relevante es que <strong>KNN obtuvo el mayor AUC (0.8542)</strong> frente a <strong>CART (0.8125)</strong>, por lo que presentó mejor capacidad global para discriminar entre diagnósticos benignos y malignos.</p>
+<p>Además, <strong>KNN alcanzó un recall de 0.9167</strong>, superior al de <strong>CART (0.8333)</strong>, lo que indica mayor sensibilidad para identificar correctamente la clase positiva. Sin embargo, <strong>CART conserva una ventaja interpretativa</strong>, ya que permite observar las reglas de decisión, los nodos del árbol y la importancia relativa de las variables.</p>
+<p>En el modelo <strong>CART</strong>, las variables predictoras más relevantes fueron <strong>compactness</strong>, <strong>perimeter</strong> y <strong>area</strong>. Esto indica que el árbol basó gran parte de sus decisiones en características morfológicas relacionadas con la <strong>compacidad</strong>, el <strong>tamaño</strong> y la <strong>extensión geométrica</strong> de la muestra. En términos interpretativos, estas variables ayudan a explicar por qué determinados registros fueron clasificados como benignos o malignos, ya que el modelo no solo produce una predicción, sino también una secuencia de condiciones que puede revisarse visualmente en los nodos del árbol.</p>
+<p>En conjunto, <strong>KNN fue el modelo con mejor rendimiento predictivo</strong>, mientras que <strong>CART fue el modelo más explicativo</strong>. Por tanto, ambos modelos aportan valor complementario: <strong>KNN por desempeño</strong> y <strong>CART por interpretabilidad</strong>.</p>
 </div>
 </div>
 </div>
@@ -11082,15 +11108,15 @@ Según AUC, el mejor desempeño global corresponde a: KNN.
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="11.-Conclusiones">11. Conclusiones<a class="anchor-link" href="#11.-Conclusiones">¶</a></h2><ol>
-<li><p>La práctica permitió implementar, evaluar y comparar dos algoritmos de aprendizaje supervisado, KNN y CART, sobre un mismo problema de clasificación binaria para el diagnóstico de cáncer de próstata.</p>
+<li><p>La práctica permitió implementar, evaluar y comparar dos algoritmos de aprendizaje supervisado, <strong>KNN y CART</strong>, sobre un mismo problema de clasificación binaria para el diagnóstico de cáncer de próstata.</p>
 </li>
-<li><p>KNN aportó un enfoque basado en la similitud entre observaciones, adecuado para variables numéricas continuas, y obtuvo el mejor desempeño global, con un AUC de 0.8542 y un recall de 0.9167, evidenciando mayor capacidad para discriminar entre casos benignos y malignos.</p>
+<li><p><strong>KNN</strong> fue el modelo con mejor rendimiento predictivo, al obtener un <strong>AUC de 0.8542</strong> y un <strong>recall de 0.9167</strong>, lo que evidencia mayor capacidad para discriminar entre diagnósticos benignos y malignos.</p>
 </li>
-<li><p>CART aportó interpretabilidad mediante reglas jerárquicas, visualización de nodos e importancia de variables, lo cual permitió explicar qué atributos influyen en la clasificación, aunque presentó un desempeño ligeramente inferior (AUC = 0.8125).</p>
+<li><p><strong>CART</strong> presentó un desempeño competitivo (<strong>AUC = 0.8125</strong>) y aportó mayor interpretabilidad mediante reglas jerárquicas, visualización de nodos e importancia de variables, destacando predictores como <strong>compactness</strong>, <strong>perimeter</strong> y <strong>area</strong>.</p>
 </li>
-<li><p>La curva ROC y el AUC permitieron comparar ambos modelos más allá de una predicción binaria fija, confirmando que KNN fue superior en capacidad predictiva, mientras que CART destacó por su capacidad explicativa.</p>
+<li><p>La <strong>curva ROC</strong> y el <strong>AUC</strong> permitieron comparar ambos modelos más allá de una predicción binaria fija, confirmando que <strong>KNN fue superior en capacidad predictiva</strong>, mientras que <strong>CART destacó por su capacidad explicativa</strong>.</p>
 </li>
-<li><p>El dataset de cáncer de próstata resultó adecuado para la práctica porque contiene variables morfológicas numéricas y una clase objetivo binaria compatible con KNN, CART y la evaluación mediante curvas ROC, permitiendo desarrollar y comparar ambos modelos bajo las mismas condiciones experimentales.</p>
+<li><p>El dataset de cáncer de próstata resultó adecuado porque contiene variables morfológicas numéricas y una clase objetivo binaria, lo que permitió aplicar KNN, CART y evaluación ROC bajo las mismas condiciones experimentales.</p>
 </li>
 </ol>
 </div>

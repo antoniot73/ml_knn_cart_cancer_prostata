@@ -1,58 +1,80 @@
 # Análisis, implementación y evaluación de KNN y CART para la clasificación de cáncer de próstata
 
-**Universidad Internacional de Aguascalientes**  
-**Maestría en Inteligencia Artificial para la Transformación Digital**  
+**Repositorio:** https://github.com/antoniot73/ml_knn_cart_cancer_prostata  
+**GitHub Pages:** https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html  
+**Binder:** https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb
 
-**Asignatura:** Aprendizaje Inteligente  
-**Unidad 2 – Aprendizaje Supervisado**
+---
+
+## Instituto Internacional de Aguascalientes
+
+**Maestría en Inteligencia Artificial para la Transformación Digital**  
+**Programa:** Aprendizaje Inteligente  
+**Alumno:** Antonio Nicolás Toro González  
+**Tutor:** Dr. Francisco Javier Luna Rosas
 
 ---
 
 ## Descripción
 
-Este repositorio contiene el desarrollo de la práctica **"Análisis, implementación y prueba de máquinas de aprendizaje supervisado"**, cuyo objetivo es implementar y comparar dos algoritmos de clasificación supervisada:
+Este repositorio contiene la práctica **“Análisis, implementación y prueba de máquinas de aprendizaje supervisado”**, desarrollada con dos modelos de clasificación supervisada:
 
 - **K-Nearest Neighbors (KNN)**
 - **Classification and Regression Tree (CART)**
 
-Ambos modelos fueron entrenados y evaluados sobre un conjunto de datos real de **cáncer de próstata**, utilizando métricas de clasificación, matrices de confusión y la **Curva ROC (Receiver Operating Characteristic)** como principal criterio de comparación.
+Ambos modelos se aplican al mismo problema de clasificación binaria: predecir si un registro corresponde a diagnóstico **benigno (B)** o **maligno (M)** de cáncer de próstata.
 
-La implementación fue desarrollada completamente en **Python** utilizando la biblioteca **Scikit-learn**, siguiendo un flujo reproducible de ciencia de datos que incluye preparación del conjunto de datos, entrenamiento, evaluación e interpretación de resultados.
+La práctica incluye marco teórico, carga del dataset, validación de datos, exploración visual, preparación de variables, entrenamiento de modelos, evaluación mediante métricas de clasificación, matrices de confusión, curva ROC, AUC, importancia de variables y visualización del árbol CART.
 
 ---
 
-# Objetivos
+## Objetivo general
+
+Implementar, evaluar y comparar dos algoritmos de aprendizaje supervisado, **KNN y CART**, sobre un dataset de cáncer de próstata, utilizando la curva ROC y el AUC como criterios principales de comparación.
+
+---
+
+## Objetivos específicos
 
 - Analizar el funcionamiento de KNN y CART.
-- Implementar ambos algoritmos mediante Scikit-learn.
-- Comparar su desempeño utilizando métricas de clasificación.
-- Evaluar la capacidad discriminativa mediante Curvas ROC y AUC.
-- Interpretar cuantitativamente y visualmente los resultados obtenidos.
+- Cargar y validar un dataset real de clasificación binaria.
+- Preparar variables predictoras y variable objetivo.
+- Entrenar ambos modelos bajo el mismo conjunto de prueba.
+- Evaluar resultados con accuracy, precision, recall, F1-score y AUC.
+- Comparar ambos modelos mediante curva ROC.
+- Interpretar el modelo CART mediante importancia de variables y árbol de decisión.
+- Generar un reporte HTML reproducible desde el notebook.
 
 ---
 
-# Dataset
+## Dataset
 
-**Nombre:** Prostate Cancer Dataset
+**Nombre:** Prostate Cancer Dataset  
+**Autor:** Sajid Saifi  
+**Fuente:** https://www.kaggle.com/datasets/sajidsaifi/prostate-cancer  
 
-**Autor:** Sajid Saifi
+El dataset contiene variables morfológicas numéricas asociadas a registros de cáncer de próstata.
 
-**Fuente oficial**
+### Variable objetivo
 
-https://www.kaggle.com/datasets/sajidsaifi/prostate-cancer
+- `diagnosis_result`
+  - `B`: benigno
+  - `M`: maligno
 
-### Características
+### Variables predictoras utilizadas
 
-- Clasificación binaria.
-- Diagnóstico:
-  - Benigno (B)
-  - Maligno (M)
-- Variables morfológicas numéricas.
-- Adecuado para algoritmos supervisados de clasificación.
+- `radius`
+- `texture`
+- `perimeter`
+- `area`
+- `smoothness`
+- `compactness`
+- `symmetry`
+- `fractal_dimension`
 
 ---
 
-# Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - Python 3.12+
 - Jupyter Notebook
@@ -60,132 +82,145 @@ https://www.kaggle.com/datasets/sajidsaifi/prostate-cancer
 - Pandas
 - Matplotlib
 - Scikit-learn
+- pathlib
+- logging
 
 ---
 
-# Algoritmos implementados
+## Modelos implementados
 
-## K-Nearest Neighbors (KNN)
+### KNN
 
-Implementado mediante:
+El modelo **K-Nearest Neighbors** clasifica registros según la cercanía geométrica entre observaciones. Debido a que depende de distancias, se aplicó escalamiento de variables mediante `StandardScaler`.
 
-- StandardScaler
-- KNeighborsClassifier
+Componentes utilizados:
+
+- `StandardScaler`
+- `KNeighborsClassifier`
+- `fit()`
+- `predict()`
+- `predict_proba()`
+
+---
+
+### CART
+
+El modelo **Classification and Regression Tree** genera reglas jerárquicas de decisión. Su principal ventaja es la interpretabilidad, ya que permite observar nodos, condiciones, importancia de variables y estructura completa del árbol.
+
+Componentes utilizados:
+
+- `DecisionTreeClassifier`
+- `plot_tree`
+- importancia de variables
+- visualización del árbol CART
+
+---
+
+## Evaluación
+
+Los modelos se comparan con:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
 - Matriz de confusión
 - Curva ROC
-- Área Bajo la Curva (AUC)
+- AUC
 
-### Características
-
-- Clasificación basada en vecinos más cercanos.
-- Requiere escalamiento de variables.
-- Muy adecuado para variables continuas.
-- Excelente capacidad de discriminación en este problema.
+La curva ROC permite comparar los modelos sin depender de un único umbral de decisión. El AUC resume la capacidad global de discriminación entre clases.
 
 ---
 
-## Árbol de Decisión (CART)
+## Resultados principales
 
-Implementado mediante:
+| Modelo | Accuracy | Precision | Recall | F1-score | AUC |
+|---|---:|---:|---:|---:|---:|
+| KNN | 0.8500 | 0.8462 | 0.9167 | 0.8800 | 0.8542 |
+| CART | 0.8000 | 0.8333 | 0.8333 | 0.8333 | 0.8125 |
 
-- DecisionTreeClassifier
-- Matriz de confusión
-- Curva ROC
-- Área Bajo la Curva (AUC)
-- Importancia de variables
-- Visualización completa del árbol
+### Interpretación general
 
-### Características
+KNN obtuvo el mejor rendimiento predictivo, con mayor AUC y recall. Esto indica mejor capacidad para discriminar entre casos benignos y malignos.
 
-- Modelo interpretable.
-- Genera reglas jerárquicas.
-- Permite visualizar nodos de decisión.
-- Calcula importancia relativa de cada variable.
+CART obtuvo un desempeño competitivo, pero su principal aporte fue la interpretabilidad mediante reglas de decisión, visualización de nodos e importancia de variables.
 
----
+Variables destacadas en CART:
 
-# Flujo de trabajo
-
-1. Introducción.
-2. Marco teórico.
-3. Carga del dataset.
-4. Exploración inicial del dataset.
-5. Visualización del dataset mediante ventana con scroll.
-6. Preparación de datos.
-7. División entrenamiento/prueba.
-8. Escalamiento de variables.
-9. Entrenamiento del modelo KNN.
-10. Entrenamiento del modelo CART.
-11. Evaluación mediante:
-   - Accuracy
-   - Precision
-   - Recall
-   - F1-score
-   - Matriz de confusión
-   - Curva ROC
-   - Área Bajo la Curva (AUC)
-12. Comparación de resultados.
-13. Discusión.
-14. Conclusiones.
+- `compactness`
+- `perimeter`
+- `area`
 
 ---
 
-# Resultados generados
+## Archivos generados
 
-El notebook genera automáticamente:
+El notebook genera salidas en:
 
-- Exploración interactiva del dataset.
-- Estadísticas descriptivas.
-- Tabla comparativa de métricas.
-- Matriz de confusión de KNN.
-- Matriz de confusión de CART.
-- Curva ROC comparativa.
-- Cálculo del AUC.
-- Importancia de variables.
-- Árbol CART con todos sus nodos.
-- Exportación automática de tablas y figuras.
+```text
+outputs/
+├── graficas/
+└── tablas/
+```
+
+Incluye:
+
+- distribución de clases
+- matriz de correlación
+- matriz de confusión KNN
+- matriz de confusión CART
+- curva ROC comparativa
+- importancia de variables CART
+- árbol CART con nodos
+- métricas comparativas en CSV
 
 ---
 
-# Estructura del proyecto
+## Estructura del repositorio
 
 ```text
 ml_knn_cart_cancer_prostata/
 │
-├── practica_knn_cart_prostata.ipynb
-├── practica_knn_cart_prostata.html
-├── README.md
-├── requirements.txt
 ├── data/
-│   └── prostate_cancer.csv
+│   └── Prostate_Cancer.csv
 │
 ├── outputs/
 │   ├── graficas/
-│   ├── tablas/
-│   └── modelos/
+│   └── tablas/
 │
-└── figures/
+├── src/
+│   ├── __init__.py
+│   ├── dataset.py
+│   ├── modeling.py
+│   ├── reporting.py
+│   └── visualization.py
+│
+├── notebooks/
+│
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── practica_knn_cart_prostata.ipynb
+└── practica_knn_cart_prostata.html
 ```
 
 ---
 
-# Instalación
+## Instalación
 
-Crear entorno virtual (opcional)
+Crear entorno virtual:
 
 ```bash
 python -m venv .venv
 ```
 
-Activar entorno
-
-Windows
+Activar entorno en Windows:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Instalar dependencias
+Instalar dependencias:
 
 ```bash
 pip install -r requirements.txt
@@ -193,21 +228,21 @@ pip install -r requirements.txt
 
 ---
 
-# Ejecución
+## Ejecución local
 
-Abrir el notebook:
+Abrir Jupyter:
 
 ```bash
 jupyter notebook
 ```
 
-o
+Ejecutar:
 
 ```bash
-jupyter lab
+practica_knn_cart_prostata.ipynb
 ```
 
-Para generar automáticamente el reporte HTML:
+Generar HTML:
 
 ```bash
 jupyter nbconvert --to html --execute practica_knn_cart_prostata.ipynb
@@ -215,44 +250,38 @@ jupyter nbconvert --to html --execute practica_knn_cart_prostata.ipynb
 
 ---
 
-# Repositorio
+## Ejecución en Binder
 
-**GitHub**
-
-https://github.com/antoniot73/ml_knn_cart_cancer_prostata
-
-**GitHub Pages**
-
-https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html
-
-**Binder**
+Abrir:
 
 https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb
 
 ---
 
-# Resultados principales
+## Publicación en GitHub Pages
 
-La comparación mostró que:
+El reporte HTML puede consultarse en:
 
-- **KNN obtuvo el mejor desempeño global**, alcanzando un **AUC = 0.8542**, lo que indica mayor capacidad para discriminar entre casos benignos y malignos.
-
-- **CART obtuvo un AUC = 0.8125**, ofreciendo un rendimiento competitivo y una mayor interpretabilidad mediante reglas de decisión y visualización del árbol.
-
-- La **Curva ROC** permitió comparar ambos modelos bajo distintos umbrales de clasificación, confirmando la superioridad de KNN en rendimiento predictivo y la utilidad de CART como modelo explicativo.
+https://antoniot73.github.io/ml_knn_cart_cancer_prostata/practica_knn_cart_prostata.html
 
 ---
 
-# Bibliotecas principales
+## Reproducibilidad
 
-- pandas
-- numpy
-- matplotlib
-- scikit-learn
+La práctica utiliza:
+
+- semilla aleatoria fija
+- separación entrenamiento/prueba
+- validación de columnas
+- revisión de valores faltantes
+- salidas en rutas relativas
+- exportación de gráficas y tablas
+
+Esto permite ejecutar el proyecto tanto en entorno local como en cloud.
 
 ---
 
-# Referencias
+## Referencias
 
 Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., VanderPlas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). *Scikit-learn: Machine Learning in Python*. *Journal of Machine Learning Research, 12*, 2825–2830.
 
