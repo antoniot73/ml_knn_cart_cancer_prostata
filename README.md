@@ -1,8 +1,10 @@
 # Análisis, implementación y evaluación de KNN y CART para la clasificación de cáncer de próstata
 
 **Repositorio:** https://github.com/antoniot73/ml_knn_cart_cancer_prostata  
-**GitHub Pages:** https://antoniot73.github.io/ml_knn_cart_cancer_prostata/notebooks/practica_knn_cart_prostata.html
-**Binder:** https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=practica_knn_cart_prostata.ipynb
+
+**GitHub Pages:** https://antoniot73.github.io/ml_knn_cart_cancer_prostata/notebooks/practica_knn_cart_prostata.html  
+
+**Binder:** https://mybinder.org/v2/gh/antoniot73/ml_knn_cart_cancer_prostata/main?filepath=notebooks/practica_knn_cart_prostata.ipynb
 
 ---
 
