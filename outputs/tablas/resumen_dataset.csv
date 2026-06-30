@@ -1,0 +1,9 @@
+Característica,Descripción
+Dominio,Diagnóstico médico: cáncer de próstata
+Tipo de aprendizaje,Supervisado
+Tipo de problema,Clasificación binaria
+Número de registros,100
+Número de columnas,10
+Variable objetivo,diagnosis_result
+Clases,M = maligno; B = benigno
+Variables predictoras,"radius, texture, perimeter, area, smoothness, compactness, symmetry, fractal_dimension"
